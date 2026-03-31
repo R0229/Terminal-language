@@ -1,0 +1,14 @@
+cd '/Users/dandong/Downloads/R scripts_Recho/Python/Bulk download papers/doi2pdf-main'
+ls batch_downloads
+
+Then open the newest summary:
+cat ./batch_downloads/download_summary_20260326_155319.txt
+
+grep -h "SUCCESS" batch_downloads/*.txt | head -20
+
+Then extract all successful DOIs correctly:
+
+grep -h "Status: SUCCESS" batch_downloads/*.txt | sed 's/.*Identifier: //' | sed 's/ | Status: SUCCESS.*//' | sort -u > successful_dois.txt
+
+If you want to double-check before running, this command compares the counts:
+wc -l my_dois.txt successful_dois.txt remaining_dois.txt
